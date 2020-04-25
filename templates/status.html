@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Bookworm
+{% endblock %}
+
+{% block body %}
+  <br>
+  <h1> <img src="https://i.pinimg.com/originals/d0/fb/73/d0fb73f0ab79cfc626ee14efaa475ea0.png" width=6%>
+    {{ headline }} </h1>
+  {{ message }}
+  <br> <br>
+
+  <form action="{{ url_for('search') }}" method="get">
+    <div class="form-group">
+      <button class="btn btn-primary" name="button">Search for more books</button>
+    </div>
+  </form>
+
+  Done with Bookworm for now?
+  <form action="{{ url_for('logout') }}" method="get">
+    <div class="form-group">
+      <button class="btn btn-link" name="button">Log out</button>
+    </div>
+  </form>
+
+{% endblock %}

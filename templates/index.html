@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title%}
+Bookworm
+{% endblock %}
+
+{% block body %}
+  <br>
+  <h1> <img src="https://i.pinimg.com/originals/d0/fb/73/d0fb73f0ab79cfc626ee14efaa475ea0.png" width=6%>
+    Bookworm </h1>
+  <p> Welcome to Bookworm, where you can look up and review your favorite books.</p>
+
+
+
+  {% if display %}
+  <div class="alert alert-info" role="alert">
+    {{ message }}
+  </div>
+  {% endif %}
+
+  <form action="{{ url_for('search') }}" method="post">
+    <div class="form-group">
+      <h2> Log in </h2>
+    </div>
+
+    <div class="form-group">
+      <input class="form-control" name="username" placeholder="Username">
+    </div>
+
+    <div class="form-group">
+      <input type="password" class="form-control" name="password" placeholder="Password">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary" name="button">Log in</button>
+    </div>
+  </form>
+
+  <p> Don't have an account yet? <a href="{{ url_for('signup') }}">Sign up here.</a>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Bookworm
+{% endblock %}
+
+{% block body %}
+  <br>
+  <h1> <img src="https://i.pinimg.com/originals/d0/fb/73/d0fb73f0ab79cfc626ee14efaa475ea0.png" width=6%>
+    {{ book.title }} </h1>
+  <ul>
+    <li> Author: {{ book.author }} </li>
+    <li> Publication Year: {{ book.year }} </li>
+    <li> ISBN number: {{ book.isbn}} </li>
+  </ul>
+
+  <div class="card" style="width: 100%;">
+    <div class="card-header">
+      <h5> Goodreads Rating </h5>
+      What Goodreads users think about <span="title" style="font-style:italic;">{{ book.title }}</span><span="text" style="font-style:normal;">:</span>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% if data is none %}
+        No Goodreads Ratings yet
+      {% else %}
+        <li class="list-group-item"> Number of ratings: {{ data["books"][0]["work_ratings_count"] }} </li>
+        <li class="list-group-item"> Average rating: {{ data["books"][0]["average_rating"] }}
+      {% endif %}
+    </ul>
+  </div>
+
+  <br>
+
+  <div class="card" style="width: 100%;">
+    <div class="card-header">
+      <h5> Bookworm Reviews </h5>
+      What other Bookworm users are saying about <span="title" style="font-style:italic;">{{ book.title }}</span><span="text" style="font-style:normal;">:</span>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for review in reviews %}
+      <li class="list-group-item">
+        Rating: {{ review.rating }} <br>
+          {{ review.content }}
+      </li>
+      {% else %}
+        <li class="list-group-item"> No reviews yet
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <br> <br>
+  Want to submit a review?
+  <form action="{{ url_for('review', book_id=book.id)}}" method="post">
+    <div class="form-group">
+      <input class="form-control" type="number" min=1 max=5 name="rating" placeholder="Rating (1 to 5)">
+    </div>
+
+    <div class="form-group">
+      <input class="form-control" name="content" placeholder="Type your review here (optional)">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary" name="button">Submit</button>
+    </div>
+  </form>
+
+  <br>
+  Done with <span="title" style="font-style:italic;">{{ book.title }}</span><span="text" style="font-style:normal;">?</span>
+  <br>
+  <form action="{{ url_for('search') }}" method="get">
+    <div class="form-group">
+      <button class="btn btn-link" name="button">Search for more books</button>
+    </div>
+  </form>
+
+  Done with Bookworm for now?
+  <form action="{{ url_for('logout') }}" method="get">
+    <div class="form-group">
+      <button class="btn btn-link" name="button">Log out</button>
+    </div>
+  </form>
+{% endblock %}

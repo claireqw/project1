@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Bookworm
+{% endblock %}
+
+{% block body %}
+  <br>
+  <h1> <img src="https://i.pinimg.com/originals/d0/fb/73/d0fb73f0ab79cfc626ee14efaa475ea0.png" width=6%>
+    Search </h1>
+
+
+    {% if display %}
+      <h5>Results</h5>
+      <ul>
+        {% for book in books %}
+          <li> <a href="{{url_for('book', book_id=book.id)}}">{{ book.title }} </a> </li>
+        {% else %}
+          <li>No books matched your search </li>
+        {% endfor %}
+      </ul>
+      <br> Search for another book. <br><br>
+    {% endif %}
+
+  <form action="{{ url_for('results') }}" method="post">
+    <div class="form-group">
+
+      <h5>Search by</h5>
+      <input type="radio" id="title" name="category" value="title">
+      <label for "title">Title</label>&nbsp&nbsp&nbsp
+      <input type="radio" id="author" name="category" value="author">
+      <label for "author">Author</label>&nbsp&nbsp&nbsp
+      <input type="radio" id="isbn" name="category" value="isbn">
+      <label for "isbn">ISBN</label>
+    </div>
+
+    <div class="form-group">
+      <input class="form-control" name="keyword" placeholder="Search for a book">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary" name="button">Search</button>
+    </div>
+  </form>
+
+
+  Done with Bookworm for now?
+  <form action="{{ url_for('logout') }}" method="get">
+    <div class="form-group">
+      <button class="btn btn-link" name="button">Log out</button>
+    </div>
+  </form>
+
+
+{% endblock %}
